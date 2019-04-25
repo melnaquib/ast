@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
-inputImage = cv2.imread("IMG_20160523_095300.jpg")
+inputImage = cv2.imread("../test/data/IMG_20160523_095300.jpg")
 inputImage = cv2.resize(inputImage,(512,512))
 inputImageGray = cv2.cvtColor(inputImage, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(inputImageGray,150,200,apertureSize = 3)

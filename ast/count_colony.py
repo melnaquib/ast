@@ -9,7 +9,7 @@ import cv2
 counter = {}
 
 # load the image
-image_orig = cv2.imread("IMG_20160523_095200.jpg")
+image_orig = cv2.imread("/home/helmogey/work/Clients/ast/test/data/IMG_20160523_095200.jpg")
 height_orig, width_orig = image_orig.shape[:2]
 
 # output image with contours

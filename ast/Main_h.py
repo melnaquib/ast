@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 # load the image and convert it from BGR to RGB so that
 # we can dispaly it with matplotlib
-image = cv2.imread("IMG_20160523_095300.jpg",cv2.IMREAD_COLOR)
+image = cv2.imread("../test/data/IMG_20160523_095300.jpg",cv2.IMREAD_COLOR)
 # img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 img = image
 output = image.copy()

@@ -4,6 +4,7 @@
 import cv2
 import os
 import numpy as np
+import os
 
 class CropLayer(object):
     def __init__(self, params, blobs):
@@ -51,8 +52,8 @@ net = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 cv2.dnn_registerLayer("Crop", CropLayer)
 
 
-
-image_path = "IMG_20160523_095300.jpg"
+image_name = "IMG_20160523_095300.jpg"
+image_path = "../test/data/"+image_name
 
 # load the input image and grab its dimensions
 image = cv2.resize(cv2.imread(image_path),(512,512))
@@ -258,19 +259,19 @@ cv2.imshow('hed_smoothed',hed_smoothed)
 cv2.imshow('blur',blur)
 cv2.imshow('smoothed',smoothed)
 
-cv2.imshow('hed_cy',hed_cy)
+# cv2.imshow('hed_cy',hed_cy)
 
 
 # cv2.imwrite("output/smoothed_"+image_path,smoothed)
 
 
-# cv2.imwrite("output/"+image_path,image)
+# cv2.imwrite("output/"+image_name,image)
 #
-# cv2.imwrite("output/DL_"+image_path,cimg)
+# cv2.imwrite("output/DL_"+image_name,cimg)
 #
-# cv2.imwrite("output/DL_canny_"+image_path,DL_canny)
+# cv2.imwrite("output/DL_canny_"+image_name,DL_canny)
 #
-# cv2.imwrite("output/HED_canny_"+image_path,hed)
+# cv2.imwrite("output/HED_canny_"+image_name,hed)
 
 
 k = cv2.waitKey()
