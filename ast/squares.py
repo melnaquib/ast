@@ -51,7 +51,7 @@ net = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 cv2.dnn_registerLayer("Crop", CropLayer)
 
 
-image_name = "IMG_20160523_095227.jpg"
+image_name = "IMG_20160523_095452.jpg"
 image_path = "../test/data/"+image_name
 
 # load the input image and grab its dimensions
@@ -123,7 +123,7 @@ def remove_the_plate(image_to_detect,image_to_remove,thickness = 60):
 
     return image_to_remove
 
-dl_canny = remove_the_plate(canny,dl_canny)
+dl_canny = remove_the_plate(canny,dl_canny,100)
 
 
 pill_circles = cv2.HoughCircles(hed_blur,cv2.HOUGH_GRADIENT,1,40,
@@ -180,7 +180,7 @@ def badding_pills(img,center,r,thickness=20):
 
 def get_square(center,d,img,r):
     cx,cy = center
-    c1 = (cx-d,cy-d)
+    c1 = (max(cx-d,0),max(cy-d,0))
     c2 = (cx+d,cy+d)
     img = badding_pills(img, center, r)
     return img[c1[1]:c2[1], c1[0]:c2[0]]
@@ -211,7 +211,7 @@ def get_the_wanted_circule(distances,image,check_image,sensitivity = 60):
         # dist,distance = get_dist(non_zero,(img.shape[0]/2,img.shape[1]/2))
 
 
-        dist = get_dist(non_zero,(img.shape[0]/2,img.shape[1]/2))
+        dist = get_dist(non_zero,(img.shape[1]/2,img.shape[0]/2))
 
 
         if len(dist) > sensitivity:
@@ -227,7 +227,7 @@ def get_the_wanted_circule(distances,image,check_image,sensitivity = 60):
             # cv2.rectangle(image,(sty,endy),(stx,endx),(0,255,255),3)
             m = np.mean(src)
             print(m)
-            if m < 136:
+            if m < 135.6:
                 cv2.circle(image, distances[i][0],d,(0,255,0),3)
 
 print(distances)
