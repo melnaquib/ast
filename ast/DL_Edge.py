@@ -60,6 +60,17 @@ image = cv2.resize(cv2.imread(image_path),(512,512))
 (H, W) = image.shape[:2]
 
 
+imgc = cv2.cvtColor(image,cv2.COLOR_BGR2HLS)
+
+image_sum = imgc[:,:,1] - imgc[:,:,2]
+
+image_sum = cv2.cvtColor(image_sum,cv2.COLOR_GRAY2BGR)
+
+img_LAB = cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
+b = img_LAB[:,:,2]
+
+b = cv2.cvtColor(b,cv2.COLOR_GRAY2BGR)
+
 img_yuv = cv2.cvtColor(image,cv2.COLOR_BGR2YUV)
 # img_cy[:,:,0] = 0.5
 
@@ -102,6 +113,11 @@ blob = cv2.dnn.blobFromImage(blurred1, scalefactor=1.0, size=(W, H),
 
 
 
+
+blob_sum = cv2.dnn.blobFromImage(image_sum, scalefactor=1.0, size=(W, H),
+                             mean=(104.00698793, 116.66876762, 122.67891434),
+                             swapRB=False, crop=False)
+
 blob_cy = cv2.dnn.blobFromImage(img_cy, scalefactor=1.0, size=(W, H),
                              mean=(104.00698793, 116.66876762, 122.67891434),
                              swapRB=False, crop=False)
@@ -133,6 +149,11 @@ hed = cv2.resize(hed[0, 0], (W, H))
 hed = (255 * hed).astype("uint8")
 
 
+print("[INFO] performing holistically-nested edge detection...")
+net.setInput(blob_sum)
+hed_b = net.forward()
+hed_b = cv2.resize(hed_b[0, 0], (W, H))
+hed_b = (255 * hed_b).astype("uint8")
 
 
 # net.setInput(blob_cy)
@@ -259,6 +280,8 @@ cv2.imshow('hed_smoothed',hed_smoothed)
 cv2.imshow('blur',blur)
 cv2.imshow('smoothed',smoothed)
 
+
+cv2.imshow('hed_b',hed_b)
 # cv2.imshow('hed_cy',hed_cy)
 
 
