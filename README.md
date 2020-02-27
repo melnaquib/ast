@@ -1,2 +1,2 @@
 # ast
-colony size measuring 'ُ
+colony size measuring 
